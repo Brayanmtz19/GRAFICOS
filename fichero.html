@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Pobreza en México (2008-2018)</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      h1, h2 {
+        text-align: center;
+        color: #333;
+      }
+      .chart-container {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .chart {
+        width: 900px;
+        height: 500px;
+        margin: 0 auto;
+      }
+    </style>
+    <script type="text/javascript">
+      // Aquí incluirás los scripts de las gráficas
+      google.charts.load('current', {'packages':['corechart']});
+      
+      function drawCharts() {
+        drawStackedBarChart();
+        drawCurveChart();
+        drawPieChart();
+        drawAreaChart();
+        drawLineChart();
+      }
+      
+      // Gráfica 1: Pobreza Rural y Urbana
+      function drawStackedBarChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Año', 'Pobreza Rural (%)', 'Pobreza Urbana (%)'],
+          ['2008', 62.5, 38.9],
+          ['2009', 61.0, 39.5],
+          ['2010', 60.0, 38.0],
+          ['2011', 59.5, 37.8],
+          ['2012', 59.0, 37.3],
+          ['2013', 58.0, 36.7],
+          ['2014', 57.5, 36.0],
+          ['2015', 57.0, 35.5],
+          ['2016', 56.0, 34.9],
+          ['2017', 55.0, 34.2],
+          ['2018', 55.3, 37.6]
+        ]);
+
+        var options = {
+          title: 'Pobreza Rural y Urbana (2008-2018)',
+          isStacked: true,
+          hAxis: {title: 'Año'},
+          vAxis: {title: 'Porcentaje (%)'},
+          colors: ['#4CAF50', '#FF9800']
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('stacked_bar_chart'));
+        chart.draw(data, options);
+      }
+
+      // Gráfica 2: Carencias Sociales
+      function drawCurveChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Año', 'Rezago Educativo', 'Servicios de Salud', 'Seguridad Social', 'Calidad y Espacios de la Vivienda', 'Servicios Básicos en la Vivienda', 'Alimentación'],
+          ['2008', 21.9, 38.4, 65.0, 17.7, 22.9, 21.7],
+          ['2010', 19.2, 33.5, 65.8, 15.2, 21.2, 24.8],
+          ['2012', 17.6, 21.5, 61.2, 13.6, 21.2, 23.3],
+          ['2014', 19.2, 18.2, 58.5, 12.3, 21.4, 23.4],
+          ['2016', 17.9, 15.5, 55.8, 12.0, 19.3, 20.6],
+          ['2018', 16.9, 16.2, 57.3, 11.1, 19.8, 20.4]
+        ]);
+
+        var options = {
+          title: 'Carencias Sociales en México (2008-2018)',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chart.draw(data, options);
+      }
+
+      // Gráfica 3: Distribución de la Pobreza por Género
+      function drawPieChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Género', 'Porcentaje'],
+          ['Mujeres (2008)', 44.6],
+          ['Hombres (2008)', 44.0],
+          ['Mujeres (2018)', 42.4],
+          ['Hombres (2018)', 41.4]
+        ]);
+
+        var options = {
+          title: 'Distribución de la Pobreza por Género (2008 y 2018)',
+          slices: {
+            0: {offset: 0.1},
+            1: {offset: 0.1},
+            2: {offset: 0.1},
+            3: {offset: 0.1}
+          },
+          pieSliceText: 'percentage',
+          colors: ['#FF5722', '#2196F3', '#4CAF50', '#FF9800'],
+          chartArea: {left: 50, top: 50, width: '80%', height: '70%'},
+          backgroundColor: '#f5f5f5'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+        chart.draw(data, options);
+      }
+
+      // Gráfica 4: Evolución de la Pobreza por Edad
+      function drawAreaChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Año', 'Menores de 18 años (%)', '18-29 años (%)', '30-39 años (%)', '40-49 años (%)', '50-59 años (%)', '60 años y más (%)'],
+          ['2008', 48.3, 44.6, 44.7, 45.2, 46.3, 47.5],
+          ['2018', 42.5, 37.0, 37.2, 37.5, 38.0, 38.3]
+        ]);
+
+        var options = {
+          title: 'Evolución de la Pobreza por Grupo de Edad (2008-2018)',
+          curveType: 'function',
+          hAxis: {title: 'Año'},
+          vAxis: {title: 'Porcentaje (%)'},
+          pointSize: 6,
+          colors: ['#1b9e77', '#d95f02', '#2196F3', '#4CAF50', '#FF9800', '#9C27B0'],
+          lineWidth: 3
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('area_chart'));
+        chart.draw(data, options);
+      }
+
+      // Gráfica 5: Pobreza y Pobreza Extrema
+      function drawLineChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Año', 'Pobreza (millones)', 'Pobreza (%)', 'Pobreza Extrema (millones)', 'Pobreza Extrema (%)'],
+          ['2008', 49.5, 44.4, 12.3, 11.0],
+          ['2018', 52.4, 41.9, 9.3, 7.4]
+        ]);
+
+        var options = {
+          title: 'Evolución de la Pobreza y Pobreza Extrema (2008-2018)',
+          curveType: 'function',
+          legend: { position: 'top' },
+          hAxis: {title: 'Año'},
+          vAxis: {title: 'Millones de personas / Porcentaje (%)'},
+          colors: ['#1b9e77', '#d95f02', '#2196F3', '#FF5722'],
+          pointSize: 6,
+          lineWidth: 3
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('line_chart'));
+        chart.draw(data, options);
+      }
+
+      google.charts.setOnLoadCallback(drawCharts);
+    </script>
+  </head>
+  <body>
+    <h1>Visualización de Pobreza en México (2008-2018)</h1>
+    
+    <div class="chart-container">
+      <h2>Pobreza Rural y Urbana</h2>
+      <div id="stacked_bar_chart" class="chart"></div>
+    </div>
+    
+    <div class="chart-container">
+      <h2>Carencias Sociales</h2>
+      <div id="curve_chart" class="chart"></div>
+    </div>
+
+    <div class="chart-container">
+      <h2>Distribución de la Pobreza por Género</h2>
+      <div id="pie_chart" class="chart"></div>
+    </div>
+
+    <div class="chart-container">
+      <h2>Evolución de la Pobreza por Grupo de Edad</h2>
+      <div id="area_chart" class="chart"></div>
+    </div>
+
+    <div class="chart-container">
+      <h2>Evolución de la Pobreza y Pobreza Extrema</h2>
+      <div id="line_chart" class="chart"></div>
+    </div>
+  </body>
+</html>
